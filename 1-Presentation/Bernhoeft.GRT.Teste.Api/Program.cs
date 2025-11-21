@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Text.Json.Serialization;
 using Bernhoeft.GRT.Core.Extensions;
 using Bernhoeft.GRT.Teste.Api.Swashbuckle;
+using Bernhoeft.GRT.Teste.Application.Requests.Commands.v1;
 using Bernhoeft.GRT.Teste.Application.Requests.Queries.v1;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -96,8 +97,9 @@ ValidatorOptions.Global.DefaultClassLevelCascadeMode = CascadeMode.Stop;
 ValidatorOptions.Global.DefaultRuleLevelCascadeMode = CascadeMode.Stop;
 ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("pt-BR");
 builder.Services.AddFluentValidationAutoValidation(options => options.DisableDataAnnotationsValidation = true)
-                .AddFluentValidationClientsideAdapters()
-                .AddValidatorsFromAssemblyContaining<GetAvisosRequest>();
+    .AddFluentValidationClientsideAdapters()
+    .AddValidatorsFromAssemblyContaining<GetAvisosRequest>();
+
 builder.Services.AddFluentValidationRulesToSwagger();
 
 // Configure Some Options
