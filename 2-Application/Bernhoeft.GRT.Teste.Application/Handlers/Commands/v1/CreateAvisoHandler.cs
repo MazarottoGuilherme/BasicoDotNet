@@ -40,11 +40,16 @@ public class CreateAvisoHandler : IRequestHandler<CreateAvisoRequest, IOperation
                 .AddMessage(validationResult.Errors.Select(e => e.ErrorMessage));
         }
 
-        var dto = new CreateAvisoDTO { Titulo = request.Titulo, Mensagem = request.Mensagem };
+        var entityTitulo = await _avisoRepository.ObterAvisoByTitulo(request.Titulo, TrackingBehavior.NoTracking, cancellationToken);
+        if (entityTitulo != null)
+            return OperationResult<CreateAvisoResponse>.Return(CustomHttpStatusCode.BadRequest,
+                    new CreateAvisoResponse() { Titulo = request.Titulo, Sucesso = false })
+                .AddMessage("Já temos um aviso com esse titulo");
 
-        var entity = await _avisoRepository.CreateAvisoAsync(dto, cancellationToken);
 
-        _context.SaveChanges();
+        var entity = await _avisoRepository.CreateAvisoAsync(request.Titulo, request.Mensagem, cancellationToken);
+
+        await _context.SaveChangesAsync();
 
         var response = new CreateAvisoResponse
         {

@@ -1,4 +1,5 @@
-﻿using Bernhoeft.GRT.Teste.Application.Requests.Commands.v1;
+﻿using System.ComponentModel.DataAnnotations;
+using Bernhoeft.GRT.Teste.Application.Requests.Commands.v1;
 using Bernhoeft.GRT.Teste.Application.Requests.Queries.v1;
 using Bernhoeft.GRT.Teste.Application.Responses.Commands.v1;
 using Bernhoeft.GRT.Teste.Application.Responses.Queries;
@@ -44,7 +45,7 @@ namespace Bernhoeft.GRT.Teste.Api.Controllers.v1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(IDocumentationRestResult<object>))]
         [HttpGet("{id:int}")]
-        public async Task<object> GetAvisosById(int id, CancellationToken cancellationToken)
+        public async Task<object> GetAvisosById([FromRoute, Range(1, int.MaxValue, ErrorMessage = "Id deve ser maior que zero")]int id, CancellationToken cancellationToken)
             => await Mediator.Send(new GetAvisoByIdRequest { Id = id }, cancellationToken);
 
 

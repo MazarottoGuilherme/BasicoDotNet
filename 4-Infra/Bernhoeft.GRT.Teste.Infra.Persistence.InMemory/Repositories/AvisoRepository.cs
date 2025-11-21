@@ -20,6 +20,13 @@ namespace Bernhoeft.GRT.ContractWeb.Infra.Persistence.SqlServer.ContractStore.Re
             return query.Where(x => x.Ativo == true).ToListAsync();
         }
 
+        public Task<AvisoEntity?> ObterAvisoByTitulo(string titulo,
+            TrackingBehavior tracking = TrackingBehavior.Default, CancellationToken cancellationToken = default)
+        {
+            var query = tracking is TrackingBehavior.NoTracking ? Set.AsNoTrackingWithIdentityResolution() : Set;
+            return query.Where(x => x.Titulo == titulo && x.Ativo == true).FirstOrDefaultAsync(cancellationToken);
+        }
+
         public Task<AvisoEntity?> ObterAvisoByIdAsync(int id, TrackingBehavior tracking = TrackingBehavior.Default, CancellationToken cancellationToken = default)
         {
             var query = tracking is TrackingBehavior.NoTracking ? Set.AsNoTrackingWithIdentityResolution() : Set;
@@ -39,13 +46,15 @@ namespace Bernhoeft.GRT.ContractWeb.Infra.Persistence.SqlServer.ContractStore.Re
             return true;
         }
 
-        public async Task<AvisoEntity> CreateAvisoAsync(CreateAvisoDTO dto, CancellationToken cancellationToken = default)
+        public async Task<AvisoEntity> CreateAvisoAsync(string titulo, string mensagem, CancellationToken cancellationToken = default)
         {
             var entity = new AvisoEntity
             {
-                Titulo = dto.Titulo,
-                Mensagem = dto.Mensagem,
-                Ativo = true
+                Titulo = titulo,
+                Mensagem = mensagem,
+                Ativo = true,
+                DataCriacao =  DateTime.Now,
+                DataAlteracao = null
             };
 
             await Set.AddAsync(entity, cancellationToken);

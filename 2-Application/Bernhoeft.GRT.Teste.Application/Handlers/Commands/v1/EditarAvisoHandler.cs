@@ -51,6 +51,7 @@ public class EditarAvisoHandler : IRequestHandler<EditarAvisoRequest, IOperation
             return OperationResult<EditarAvisoResponse>.ReturnNoContent();
 
         entity.Mensagem = request.Mensagem;
+        entity.DataAlteracao = DateTime.Now;
 
         await _avisoRepository.EditarAvisoAsync(entity);
         await _context.SaveChangesAsync(cancellationToken);

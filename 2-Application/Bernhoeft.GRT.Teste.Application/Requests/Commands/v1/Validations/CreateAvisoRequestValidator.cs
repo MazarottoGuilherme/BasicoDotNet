@@ -1,5 +1,4 @@
-﻿using Bernhoeft.GRT.ContractWeb.Domain.SqlServer.ContractStore.Entities;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Bernhoeft.GRT.Teste.Application.Requests.Commands.v1.Validations;
 

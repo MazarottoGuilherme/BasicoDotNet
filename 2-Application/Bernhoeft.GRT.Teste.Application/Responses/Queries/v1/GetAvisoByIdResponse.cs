@@ -8,7 +8,7 @@ public class GetAvisoByIdResponse
     public string Titulo { get; set; }
     public string Mensagem { get; set; }
     public DateTime DataCriacao { get; set; }
-    public DateTime DataAlteracao { get; set; }
+    public DateTime? DataAlteracao { get; set; }
 
     public static implicit operator GetAvisoByIdResponse(AvisoEntity entity) => new()
     {

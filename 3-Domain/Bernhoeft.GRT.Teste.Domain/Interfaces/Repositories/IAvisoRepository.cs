@@ -12,8 +12,10 @@ namespace Bernhoeft.GRT.ContractWeb.Domain.SqlServer.ContractStore.Interfaces.Re
 
         Task<bool> DesativarAvisoAsync(int id, CancellationToken cancellationToken = default);
 
-        Task<AvisoEntity> CreateAvisoAsync(CreateAvisoDTO dto, CancellationToken cancellationToken = default);
+        Task<AvisoEntity> CreateAvisoAsync(string titulo, string mensagem, CancellationToken cancellationToken = default);
 
         Task EditarAvisoAsync(AvisoEntity entity, CancellationToken cancellationToken = default);
+
+        Task<AvisoEntity?> ObterAvisoByTitulo(string titulo, TrackingBehavior tracking = TrackingBehavior.Default, CancellationToken cancellationToken = default);
     }
 }

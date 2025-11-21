@@ -45,7 +45,7 @@ public class DeleteAvisoByIdHandler: IRequestHandler<DeleteAvisoByIdRequest, IOp
         if(entity == false)
             return OperationResult<DeleteAvisoByIdResponse>.ReturnNoContent();
 
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
 
         return OperationResult<DeleteAvisoByIdResponse>.ReturnOk(
             new DeleteAvisoByIdResponse { Sucesso = entity }

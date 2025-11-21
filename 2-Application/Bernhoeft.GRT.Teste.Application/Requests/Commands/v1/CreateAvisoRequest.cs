@@ -1,5 +1,4 @@
-﻿using Bernhoeft.GRT.ContractWeb.Domain.SqlServer.ContractStore.Entities;
-using Bernhoeft.GRT.Core.Interfaces.Results;
+﻿using Bernhoeft.GRT.Core.Interfaces.Results;
 using Bernhoeft.GRT.Teste.Application.Responses.Commands.v1;
 using MediatR;
 
